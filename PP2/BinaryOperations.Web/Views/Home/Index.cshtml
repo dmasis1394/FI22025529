@@ -1,0 +1,132 @@
+﻿@model BinaryOperations.Web.Models.BinaryOperationModel
+
+@{
+    ViewData["Title"] = "Operaciones Binarias";
+}
+
+<div class="container mt-5">
+    <h1 class="text-center mb-4">Operaciones Binarias</h1>
+    
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title mb-0">Ingresar Números Binarios</h5>
+                </div>
+                <div class="card-body">
+                    <form method="post">
+                        @Html.AntiForgeryToken()
+                        
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="A">a (binario):</label>
+                                    <input type="text" class="form-control @(ViewData.ModelState["A"]?.Errors.Count > 0 ? "is-invalid" : "")" 
+                                           id="A" name="A" value="@Model.A" placeholder="Ej: 1010" />
+                                    @if (ViewData.ModelState["A"]?.Errors.Count > 0)
+                                    {
+                                        <div class="invalid-feedback">
+                                            @ViewData.ModelState["A"]?.Errors[0].ErrorMessage
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="form-group">
+                                    <label for="B">b (binario):</label>
+                                    <input type="text" class="form-control @(ViewData.ModelState["B"]?.Errors.Count > 0 ? "is-invalid" : "")" 
+                                           id="B" name="B" value="@Model.B" placeholder="Ej: 11" />
+                                    @if (ViewData.ModelState["B"]?.Errors.Count > 0)
+                                    {
+                                        <div class="invalid-feedback">
+                                            @ViewData.ModelState["B"]?.Errors[0].ErrorMessage
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="form-group mt-3">
+                            <button type="submit" class="btn btn-primary btn-block">Calcular Operaciones</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            @if (Model.HasResults && Model.Results != null)
+            {
+                <div class="card mt-4">
+                    <div class="card-header">
+                        <h5 class="card-title mb-0">Resultados</h5>
+                    </div>
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-striped">
+                                <thead class="thead-dark">
+                                    <tr>
+                                        <th>Operación</th>
+                                        <th>Bin</th>
+                                        <th>Oct</th>
+                                        <th>Dec</th>
+                                        <th>Hex</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td><strong>a</strong></td>
+                                        <td>@Model.Results.A.Binary</td>
+                                        <td>@Model.Results.A.Octal</td>
+                                        <td>@Model.Results.A.Decimal</td>
+                                        <td>@Model.Results.A.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>b</strong></td>
+                                        <td>@Model.Results.B.Binary</td>
+                                        <td>@Model.Results.B.Octal</td>
+                                        <td>@Model.Results.B.Decimal</td>
+                                        <td>@Model.Results.B.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>a AND b</strong></td>
+                                        <td>@Model.Results.And.Binary</td>
+                                        <td>@Model.Results.And.Octal</td>
+                                        <td>@Model.Results.And.Decimal</td>
+                                        <td>@Model.Results.And.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>a OR b</strong></td>
+                                        <td>@Model.Results.Or.Binary</td>
+                                        <td>@Model.Results.Or.Octal</td>
+                                        <td>@Model.Results.Or.Decimal</td>
+                                        <td>@Model.Results.Or.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>a XOR b</strong></td>
+                                        <td>@Model.Results.Xor.Binary</td>
+                                        <td>@Model.Results.Xor.Octal</td>
+                                        <td>@Model.Results.Xor.Decimal</td>
+                                        <td>@Model.Results.Xor.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>a + b</strong></td>
+                                        <td>@Model.Results.Sum.Binary</td>
+                                        <td>@Model.Results.Sum.Octal</td>
+                                        <td>@Model.Results.Sum.Decimal</td>
+                                        <td>@Model.Results.Sum.Hexadecimal</td>
+                                    </tr>
+                                    <tr>
+                                        <td><strong>a • b</strong></td>
+                                        <td>@Model.Results.Multiply.Binary</td>
+                                        <td>@Model.Results.Multiply.Octal</td>
+                                        <td>@Model.Results.Multiply.Decimal</td>
+                                        <td>@Model.Results.Multiply.Hexadecimal</td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div>
+</div>
